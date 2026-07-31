@@ -1,0 +1,144 @@
+name: CI/CD Verification Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Continuous Integration & Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Required Repository Files
+        run: |
+          echo "Verifying presence of core repository files..."
+          REQUIRED_FILES=("README.md" ".env.example" ".gitignore" ".github/workflows/ci.yml" "package.json")
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "ERROR: Required repository file '$file' is missing!"
+              exit 1
+            fi
+          done
+          echo "All required repository integrity files verified."
+
+      - name: Security & Secret Leak Audit
+        run: |
+          echo "Scanning repository for unauthorized secrets, private keys, and wallet state files..."
+          FORBIDDEN_PATTERNS=(".env" ".env.local" "*.pem" "*.key" "wallet.json" "mnemonics.txt" "*.seed")
+          FOUND_LEAKS=0
+
+          for pattern in "${FORBIDDEN_PATTERNS[@]}"; do
+            MATCHES=$(find . -name "$pattern" -not -path "*/node_modules/*" -not -path "*/.git/*" 2>/dev/null)
+            if [ -n "$MATCHES" ]; then
+              echo "SECURITY ERROR: Forbidden secret or state file found: $MATCHES"
+              FOUND_LEAKS=1
+            fi
+          done
+
+          # Check for hardcoded PAT tokens or private key blocks
+          if git grep -E "(ghp_[A-Za-z0-9]{36}|xox[baprs]-[A-Za-z0-9]|-----BEGIN PRIVATE KEY-----)" -- ':!.github/workflows/*' 2>/dev/null; then
+            echo "SECURITY ERROR: Hardcoded credential or token detected in repository!"
+            FOUND_LEAKS=1
+          fi
+
+          if [ $FOUND_LEAKS -ne 0 ]; then
+            echo "Security verification failed: Sensitive data or secrets detected."
+            exit 1
+          fi
+          echo "Security audit passed cleanly: No secrets or state files present."
+
+      - name: Setup Compact Compiler
+        uses: midnightntwrk/setup-compact-action@v1
+        with:
+          compact-version: '0.31.0'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install Workspace Dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Compact Contract Verification & Compilation
+        working-directory: contract
+        run: |
+          echo "Compiling Compact smart contract circuits..."
+          npm run compact
+          if [ ! -d "src/managed/bboard" ]; then
+            echo "ERROR: Compact compilation failed to produce managed circuit artifacts!"
+            exit 1
+          fi
+          echo "Compact contract compilation verified successfully."
+
+      - name: Contract TypeScript Verification
+        working-directory: contract
+        run: npm run typecheck
+
+      - name: Contract Linting Verification
+        working-directory: contract
+        run: npm run lint
+
+      - name: Contract Automated Test Verification
+        working-directory: contract
+        run: npm run test -- --run
+
+      - name: Build Contract Package
+        working-directory: contract
+        run: npm run build
+
+      - name: API TypeScript & Linting Verification
+        working-directory: api
+        run: |
+          npm run typecheck
+          npm run lint
+
+      - name: Build API Package
+        working-directory: api
+        run: npm run build
+
+      - name: CLI TypeScript & Linting Verification
+        working-directory: bboard-cli
+        run: |
+          npm run typecheck
+          npm run lint
+
+      - name: Build CLI Package
+        working-directory: bboard-cli
+        run: npm run build
+
+      - name: Frontend UI TypeScript & Linting Verification
+        working-directory: bboard-ui
+        run: |
+          npm run typecheck
+          npm run lint
+
+      - name: Build Frontend UI Package
+        working-directory: bboard-ui
+        run: npm run build
+
+      - name: Upload Frontend UI Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-ui-dist
+          path: bboard-ui/dist/
+          retention-days: 7
+
+      - name: Upload Compact Contract Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compact-contract-managed
+          path: contract/src/managed/
+          retention-days: 7
