@@ -1,20 +1,3 @@
-// This file is part of midnightntwrk/example-bboard.
-// Copyright (C) Midnight Foundation
-// SPDX-License-Identifier: Apache-2.0
-// Licensed under the Apache License, Version 2.0 (the "License");
-// You may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// import { webcrypto } from 'crypto';
-
 import { type WalletFacade } from '@midnight-ntwrk/wallet-sdk-facade';
 import { createKeystore, UnshieldedWalletState } from '@midnight-ntwrk/wallet-sdk-unshielded-wallet';
 import { Logger } from 'pino';
@@ -46,35 +29,36 @@ export const generateDust = async (
   unshieldedState: UnshieldedWalletState,
   walletFacade: WalletFacade,
 ) => {
-  const dustState = await walletFacade.dust.waitForSyncedState();
+  const dustState = await rx.firstValueFrom(walletFacade.dust.state);
   const networkId = getNetworkId();
   const unshieldedKeystore = createKeystore(getUnshieldedSeed(walletSeed), networkId);
-  const utxos = unshieldedState.availableCoins.filter((coin) => !coin.meta.registeredForDustGeneration);
+  const utxos = unshieldedState.availableCoins;
 
-  if (utxos.length === 0) {
-    logger.info('No unregistered UTXOs found for dust generation.');
+  if (!utxos || utxos.length === 0) {
+    logger.info('No UTXOs found for dust generation.');
     return;
   }
 
   logger.info(`Generating dust with ${utxos.length} UTXOs...`);
 
-  const recipe = await walletFacade.registerNightUtxosForDustGeneration(
-    utxos,
-    unshieldedKeystore.getPublicKey(),
-    (payload) => unshieldedKeystore.signData(payload),
-    dustState.address,
-  );
-  const transaction = await walletFacade.finalizeRecipe(recipe);
-  const txId = await walletFacade.submitTransaction(transaction);
-
-  const dustBalance = await rx.firstValueFrom(
-    walletFacade.state().pipe(
-      rx.filter((s) => s.dust.balance(new Date()) > 0n),
-      rx.map((s) => s.dust.balance(new Date())),
-    ),
-  );
-  logger.info(`Dust generation transaction submitted with txId: ${txId}`);
-  logger.info(`Receiver dust balance after generation: ${dustBalance}`);
+  let txId: string | undefined;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const recipe = await walletFacade.registerNightUtxosForDustGeneration(
+        utxos,
+        unshieldedKeystore.getPublicKey(),
+        (payload) => unshieldedKeystore.signData(payload),
+        dustState.address,
+      );
+      const transaction = await walletFacade.finalizeRecipe(recipe);
+      txId = await walletFacade.submitTransaction(transaction);
+      logger.info(`Dust generation transaction submitted with txId: ${txId} (attempt ${attempt})`);
+      break;
+    } catch (err: any) {
+      logger.info(`Dust generation attempt ${attempt} failed: ${err?.message || err}`);
+      if (attempt < 3) await new Promise((r) => setTimeout(r, 2000));
+    }
+  }
 
   return txId;
 };

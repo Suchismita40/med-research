@@ -95,14 +95,14 @@ Built using the **Midnight Protocol** and **Compact** smart contract language, t
 
 ## 📍 Contract Address
 
-The smart contract is deployed on the **Midnight Preprod Network**:
+The smart contract is deployed on the **Midnight Preview Network**:
 
 | Field | Details / On-Chain Record |
 | :--- | :--- |
-| **Target Network** | Midnight Preprod Network (Network ID: `preprod`) |
+| **Target Network** | Midnight Preview Network (Network ID: `preview`) |
 | **Contract Name** | `bboard.compact` (`@midnight-ntwrk/bboard-contract`) |
-| **Deployed Contract Address** | `02008f1c5d5e236319830211751bc97858c49e7b26d3023a1c6298539adbfef2b607` |
-| **Explorer Verification** | [View Contract on Midnight Preprod Explorer](https://preprod.midnight-explorer.com/contract/02008f1c5d5e236319830211751bc97858c49e7b26d3023a1c6298539adbfef2b607) |
+| **Deployed Contract Address** | `3866cc23357b46840417a8c11602b6b0b352619d4a6b9dadc25acf03913f7d29` |
+| **Explorer Verification** | [View Contract on Midnight Preview Explorer](https://preview.midnight-explorer.com/contract/3866cc23357b46840417a8c11602b6b0b352619d4a6b9dadc25acf03913f7d29) |
 | **Circuits Deployed** | `registerDataset`, `grantPermission`, `requestAccess`, `revokeAccess`, `submitAccessProof` |
 
 ---
@@ -149,9 +149,9 @@ In the Compact smart contract language, `disclose(value)` selectively converts a
 
 | Setting | Value / Details |
 | :--- | :--- |
-| **Target Network** | Midnight Preprod Network |
+| **Target Network** | Midnight Preview Network |
 | **Contract Name** | `bboard.compact` (`@midnight-ntwrk/bboard-contract`) |
-| **Deployed Contract Address** | `02008f1c5d5e236319830211751bc97858c49e7b26d3023a1c6298539adbfef2b607` |
+| **Deployed Contract Address** | `3866cc23357b46840417a8c11602b6b0b352619d4a6b9dadc25acf03913f7d29` |
 | **Circuit Artifacts** | `grantPermission`, `registerDataset`, `requestAccess`, `revokeAccess`, `submitAccessProof` |
 | **Compiler Version** | Compact `0.5.1` (CLI `0.31.0`) |
 | **Frontend Deployment** | [Vercel App](https://medical-research-data-centre-64kc-lsfbefyu2-cr-17.vercel.app) |
