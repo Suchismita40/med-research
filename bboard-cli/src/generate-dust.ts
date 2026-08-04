@@ -54,8 +54,9 @@ export const generateDust = async (
       txId = await walletFacade.submitTransaction(transaction);
       logger.info(`Dust generation transaction submitted with txId: ${txId} (attempt ${attempt})`);
       break;
-    } catch (err: any) {
-      logger.info(`Dust generation attempt ${attempt} failed: ${err?.message || err}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      logger.info(`Dust generation attempt ${attempt} failed: ${msg}`);
       if (attempt < 3) await new Promise((r) => setTimeout(r, 2000));
     }
   }

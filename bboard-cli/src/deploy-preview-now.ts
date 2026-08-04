@@ -65,8 +65,8 @@ async function main() {
     try {
       const dustTx = await generateDust(logger, SEED, unshieldedState, walletProvider.wallet);
       if (dustTx) console.log(`Submitted dust generation tx: ${dustTx}`);
-    } catch (err: any) {
-      console.log('Dust generation note:', err?.message || err);
+    } catch (err: unknown) {
+      console.log('Dust generation note:', err instanceof Error ? err.message : String(err));
     }
   }
 
@@ -129,11 +129,19 @@ async function main() {
   await walletProvider.stop();
 }
 
-main().catch((err) => {
+main().catch((err: unknown) => {
   console.error('DEPLOYMENT FAILED WITH ERROR:', err);
   fs.writeFileSync(
     RESULT_FILE,
-    JSON.stringify({ status: 'ERROR', error: err?.message || String(err), stack: err?.stack }, null, 2),
+    JSON.stringify(
+      {
+        status: 'ERROR',
+        error: err instanceof Error ? err.message : String(err),
+        stack: err instanceof Error ? err.stack : undefined,
+      },
+      null,
+      2,
+    ),
   );
   process.exit(1);
 });

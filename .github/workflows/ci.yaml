@@ -21,7 +21,7 @@ jobs:
       - name: Verify Required Repository Files
         run: |
           echo "Verifying presence of core repository files..."
-          REQUIRED_FILES=("README.md" ".env.example" ".gitignore" ".github/workflows/ci.yml" "package.json")
+          REQUIRED_FILES=("README.md" ".env.example" ".gitignore" ".github/workflows/ci.yaml" "package.json")
           for file in "${REQUIRED_FILES[@]}"; do
             if [ ! -f "$file" ]; then
               echo "ERROR: Required repository file '$file' is missing!"
