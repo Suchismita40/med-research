@@ -25,7 +25,7 @@ The **Private Medical Research Data Exchange (MedEx)** is a production-grade, pr
 | 🌐 **Live Application** | Deployed web application on Vercel | [Live Demo (Vercel)](https://med-research-fiem.vercel.app) |
 | 🐙 **GitHub Repository** | Open-source monorepo codebase | [GitHub Repo](https://github.com/Suchismita40/med-research.git) |
 | ⚙️ **CI/CD Pipeline** | GitHub Actions build & verification pipeline | [View CI/CD Pipeline](https://github.com/Suchismita40/med-research/actions) |
-| 🔍 **Smart Contract Explorer** | Midnight Preprod Network Explorer | [Midnight Explorer](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
+| 🔍 **Smart Contract Explorer** | Midnight Preprod Network Explorer | [Midnight Explorer](https://preprod.midnightexplorer.com) |
 | 📄 **Product Proposal** | Complete project documentation and specs | [PROPOSAL.md](PROPOSAL.md) |
 
 ---
@@ -242,7 +242,7 @@ The enhanced smart contract is permanently deployed on the official **Midnight P
 | **Deployer Public Address** | `mn_addr_preprod1efmkmrfgcdxhxyx2f7kfmchgrfme6prmvmyx3y23aae2t9zmnuzsqnh8xv` |
 | **Contract Address** | `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97` |
 | **Deployment Transaction Hash** | `636ea733d93f66febf110812f06573cc7c5d8f19569b0d2cc88420fdeabaf169` |
-| **Midnight Explorer** | [View Preprod Contract](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
+| **Midnight Explorer** | [View Preprod Contract](https://preprod.midnightexplorer.com) |
 | **Proof Server Endpoint** | `https://proof-server.preprod.midnight.network` |
 | **Preprod Indexer GraphQL** | `https://indexer.preprod.midnight.network/api/v4/graphql` |
 | **Preprod Indexer WebSocket** | `wss://indexer.preprod.midnight.network/api/v4/graphql/ws` |
@@ -330,7 +330,7 @@ Route (app)                              Size     First Load JS
 | **B** | **REAL Contract Address** | `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97` |
 | **C** | **Deployment Transaction Hash** | `636ea733d93f66febf110812f06573cc7c5d8f19569b0d2cc88420fdeabaf169` |
 | **D** | **Deployer Address** | `mn_addr_preprod1efmkmrfgcdxhxyx2f7kfmchgrfme6prmvmyx3y23aae2t9zmnuzsqnh8xv` |
-| **E** | **Explorer URL** | [`https://preprod.midnightexplorer.com/contract/e603362546...`](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
+| **E** | **Explorer URL** | [`https://preprod.midnightexplorer.com`](https://preprod.midnightexplorer.com) |
 | **F** | **Contract Verification** | 6 impure circuits + 1 pure circuit compiled with Compact 0.23 |
 | **G** | **Next.js Configuration** | Next.js 14.2 App Router with TypeScript & Tailwind CSS |
 | **H** | **Lace Wallet Verification** | Authentic Lace Wallet detection and address resolution (`mn_shield-...`) |

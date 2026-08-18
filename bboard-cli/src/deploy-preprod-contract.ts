@@ -166,7 +166,7 @@ async function main() {
     contractAddress: contractAddress,
     deploymentTxHash: txHash,
     deployerAddress: publicUnshieldedAddress,
-    explorerUrl: `https://preprod.midnightexplorer.com/contract/${contractAddress}`,
+    explorerUrl: `https://preprod.midnightexplorer.com`,
     timestamp: new Date().toISOString(),
   };
 
@@ -188,7 +188,7 @@ VITE_CONTRACT_ADDRESS=${contractAddress}
   console.log(`CONTRACT ADDRESS: ${contractAddress}`);
   console.log(`DEPLOYMENT TX HASH: ${txHash}`);
   console.log(`DEPLOYER ADDRESS: ${publicUnshieldedAddress}`);
-  console.log(`EXPLORER URL: https://preprod.midnightexplorer.com/contract/${contractAddress}`);
+  console.log(`EXPLORER URL: https://preprod.midnightexplorer.com`);
   console.log('=============================');
 
   await walletProvider.stop();
