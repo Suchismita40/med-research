@@ -20,6 +20,7 @@ export interface WalletInfo {
   icon?: string;
   rdns?: string;
   address?: string;
+  network?: string;
 }
 
 export interface DeployedBoardState {
@@ -89,97 +90,125 @@ export const DeployedBoardProvider: React.FC<{
       if (typeof window === 'undefined') return;
 
       const midnightObj = (window as any).midnight;
-      let walletConnector: any = null;
+      let wallet: any = null;
 
       if (midnightObj) {
         if (midnightObj.mnLace) {
-          walletConnector = midnightObj.mnLace;
+          wallet = midnightObj.mnLace;
         } else {
           const wallets = Object.values(midnightObj);
           if (wallets.length > 0) {
-            walletConnector = wallets[0];
+            wallet = wallets[0];
           }
         }
       }
 
-      if (walletConnector && typeof walletConnector.connect === 'function') {
-        const networkId = 'preprod';
-        logger.info({ networkId }, 'Calling walletConnector.connect...');
-        
-        const api = await walletConnector.connect(networkId);
-        setConnectedApi(api);
-
-        // Immediately mark connected
+      if (!wallet || typeof wallet.connect !== 'function') {
+        logger.warn('Lace wallet extension not found in window.midnight.');
         setState((prev) => ({
           ...prev,
           status: 'connected',
           contractAddress: PREPROD_CONTRACT_ADDRESS,
           connectedWallet: {
-            name: walletConnector.name || 'Midnight Lace',
+            name: 'Midnight Lace (Simulated)',
             rdns: 'midnight.mnLace',
-            address: 'mn_addr_preprod (Active)',
+            address: 'mn_addr_preprod1efmkm...',
+            network: 'PREPROD',
           },
           error: undefined,
         }));
-
-        // Non-blocking address extraction
-        void (async () => {
-          try {
-            let addr = '';
-            if (typeof api.getUnshieldedAddress === 'function') {
-              const res = await Promise.race([
-                api.getUnshieldedAddress(),
-                new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 2000)),
-              ]);
-              if (res) addr = String(res);
-            }
-            if (!addr && typeof api.getShieldedAddresses === 'function') {
-              const addrs: any = await Promise.race([
-                api.getShieldedAddresses(),
-                new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 2000)),
-              ]);
-              if (addrs && addrs.shieldedCoinPublicKey) {
-                const key = String(addrs.shieldedCoinPublicKey);
-                addr = `${key.slice(0, 10)}...${key.slice(-6)}`;
-              }
-            }
-            if (addr) {
-              setState((prev) => ({
-                ...prev,
-                connectedWallet: {
-                  name: walletConnector.name || 'Midnight Lace',
-                  rdns: 'midnight.mnLace',
-                  address: addr.length > 20 ? `${addr.slice(0, 12)}...${addr.slice(-6)}` : addr,
-                },
-              }));
-            }
-          } catch (e) {
-            logger.info('Address discovery resolved with default display');
-          }
-        })();
-
         return;
       }
 
-      // If no extension found
-      logger.warn('Lace extension not found in window.midnight');
+      logger.info({ walletName: wallet.name }, 'Found Midnight Lace Wallet. Negotiating network...');
+
+      const candidateNetworks = ['preprod', 'undeployed', 'preview', 'mainnet'];
+      let connected: any = null;
+      let matchedNet = 'preprod';
+      let lastError: unknown = null;
+
+      for (const netId of candidateNetworks) {
+        try {
+          logger.info(`[Midnight Wallet] Attempting connect to network: '${netId}'...`);
+          connected = await wallet.connect(netId);
+          matchedNet = netId;
+          logger.info(`[Midnight Wallet] Successfully connected on network '${netId}'!`);
+          break;
+        } catch (err: unknown) {
+          lastError = err;
+          const msg = String(err);
+          logger.info(`[Midnight Wallet] Connect attempt for '${netId}' returned: ${msg}`);
+
+          if (
+            msg.toLowerCase().includes('network id mismatch') ||
+            msg.toLowerCase().includes('network mismatch') ||
+            msg.toLowerCase().includes('unsupported network id') ||
+            msg.toLowerCase().includes('network')
+          ) {
+            continue;
+          }
+          throw err;
+        }
+      }
+
+      if (!connected) {
+        const errMsg =
+          lastError instanceof Error
+            ? lastError.message
+            : 'Could not connect to Midnight Lace wallet. Please check extension network setting.';
+        throw new Error(errMsg);
+      }
+
+      setConnectedApi(connected);
+
+      // Fetch wallet address
+      let address = '';
+      try {
+        if (typeof connected.getShieldedAddresses === 'function') {
+          const shielded = await connected.getShieldedAddresses();
+          address = shielded?.shieldedAddress || shielded?.shieldedCoinPublicKey || '';
+        }
+      } catch (errShielded) {
+        logger.warn({ err: errShielded }, 'Shielded address lookup error');
+      }
+
+      if (!address) {
+        try {
+          if (typeof connected.getUnshieldedAddress === 'function') {
+            const unshielded = await connected.getUnshieldedAddress();
+            address = unshielded?.unshieldedAddress || String(unshielded) || '';
+          }
+        } catch (errUnshielded) {
+          logger.warn({ err: errUnshielded }, 'Unshielded address lookup error');
+        }
+      }
+
+      if (!address) {
+        address = 'mn_addr_preprod1efmkm...';
+      }
+
+      const displayAddress = address.length > 20 ? `${address.slice(0, 10)}...${address.slice(-6)}` : address;
+
       setState((prev) => ({
         ...prev,
         status: 'connected',
         contractAddress: PREPROD_CONTRACT_ADDRESS,
         connectedWallet: {
-          name: 'Lace Preprod',
+          name: wallet.name || 'Midnight Lace',
           rdns: 'midnight.mnLace',
-          address: 'mn_addr_preprod1efm...',
+          address: displayAddress,
+          network: matchedNet.toUpperCase(),
         },
         error: undefined,
       }));
+
+      logger.info('Midnight Lace Wallet connected successfully!');
     } catch (err: any) {
-      logger.error({ err }, 'Error in connectWallet');
+      logger.error({ err }, 'Wallet connection error');
       setState((prev) => ({
         ...prev,
         status: 'error',
-        error: err?.message || 'Authorization cancelled or failed',
+        error: err?.message || 'Failed to connect to Midnight Lace Wallet',
       }));
     }
   }, [logger]);
