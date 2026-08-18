@@ -19,6 +19,29 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 ---
+## 📸 Application Interface & Zero-Knowledge Workflows
+
+### 1. Overview Page
+![Overview Page](./docs/screenshots/overview-page.png)
+*Executive telemetry dashboard displaying live Midnight Preprod network status, active dataset counters, and permission metrics.*  
+*Visualizes the dual-state Zero-Knowledge architecture separating public on-chain ledger state from private off-chain witness state.*
+
+---
+
+### 2. Dataset Register
+![Dataset Register](./docs/screenshots/dataset-register.png)
+*Confidential clinical dataset registry modal displaying accredited healthcare institutions, sample cohort sizes, and on-chain identifiers.*  
+*Enables instant dataset registration and granular access governance through Compact smart contract circuits.*
+
+---
+
+### 3. Activity
+![Activity & Contract Telemetry](./docs/screenshots/activity.png)
+*Immutable on-chain cryptographic audit trail capturing verifiable transaction hashes and disclosed zero-knowledge proof commitments.*  
+*Provides real-time infrastructure telemetry for Midnight Preprod node synchronization, official prover connectivity, and contract state.*
+
+---
+
 
 ## 📍 Verified Midnight Preprod Deployment
 
