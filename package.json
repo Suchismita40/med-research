@@ -64,6 +64,7 @@
   },
   "scripts": {
     "build": "npm run build -w contract && npm run build -w api && npm run build -w bboard-ui",
-    "build:vercel": "npm run build -w contract && npm run build -w api && npm run build:vercel -w bboard-ui"
+    "build:vercel": "npm run build -w contract && npm run build -w api && npm run build:vercel -w bboard-ui",
+    "test": "npm --prefix contract run test"
   }
 }
