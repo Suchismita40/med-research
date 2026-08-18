@@ -48,7 +48,10 @@ describe("Private Medical Research Data Exchange Contract", () => {
     const datasetId = randomBytes(32);
 
     const simulator = new BBoardSimulator(hospitalKey);
-    simulator.registerDataset("Cardiology Patient Outcomes Dataset", "Cardiology");
+    simulator.registerDataset(
+      "Cardiology Patient Outcomes Dataset",
+      "Cardiology",
+    );
 
     simulator.switchUser(researcherKey, medicalCredential);
     simulator.requestAccess(datasetId);
@@ -67,7 +70,10 @@ describe("Private Medical Research Data Exchange Contract", () => {
     const patientRecordHash = randomBytes(32);
 
     const simulator = new BBoardSimulator(hospitalKey);
-    simulator.registerDataset("Rare Neurological Disorders Cohort", "Neurology");
+    simulator.registerDataset(
+      "Rare Neurological Disorders Cohort",
+      "Neurology",
+    );
 
     // Researcher requests access
     simulator.switchUser(researcherKey, medicalCredential, patientRecordKey);
@@ -95,7 +101,10 @@ describe("Private Medical Research Data Exchange Contract", () => {
     const datasetId = randomBytes(32);
 
     const simulator = new BBoardSimulator(hospitalKey);
-    simulator.registerDataset("Immunology Clinical Trial Dataset", "Immunology");
+    simulator.registerDataset(
+      "Immunology Clinical Trial Dataset",
+      "Immunology",
+    );
 
     simulator.switchUser(researcherKey, randomBytes(32));
     simulator.requestAccess(datasetId);
@@ -147,7 +156,10 @@ describe("Private Medical Research Data Exchange Contract", () => {
     const datasetId = randomBytes(32);
 
     const simulator = new BBoardSimulator(hospitalKey);
-    simulator.registerDataset("Longitudinal Diabetic Retinopathy Cohort", "Ophthalmology");
+    simulator.registerDataset(
+      "Longitudinal Diabetic Retinopathy Cohort",
+      "Ophthalmology",
+    );
 
     simulator.switchUser(researcherKey, medicalCredential, patientRecordKey);
     simulator.requestAccess(datasetId);

@@ -132,8 +132,8 @@ jobs:
       - name: Upload Frontend UI Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: frontend-ui-dist
-          path: bboard-ui/dist/
+          name: frontend-ui-out
+          path: bboard-ui/out/
           retention-days: 7
 
       - name: Upload Compact Contract Artifacts

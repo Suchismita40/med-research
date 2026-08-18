@@ -88,7 +88,12 @@ async function main() {
   if (dustBalance > 0n) {
     const zkConfigPath = path.resolve(currentDir, '..', '..', 'contract', 'src', 'managed', 'bboard');
     const zkConfigProvider = new NodeZkConfigProvider<
-      'registerDataset' | 'requestAccess' | 'grantPermission' | 'submitAccessProof' | 'renewAccessQuota' | 'revokeAccess'
+      | 'registerDataset'
+      | 'requestAccess'
+      | 'grantPermission'
+      | 'submitAccessProof'
+      | 'renewAccessQuota'
+      | 'revokeAccess'
     >(zkConfigPath);
 
     const providers: BBoardProviders = {

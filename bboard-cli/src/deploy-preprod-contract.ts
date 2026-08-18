@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import { type EnvironmentConfiguration } from '@midnight-ntwrk/testkit-js';
 import { nativeToken } from '@midnight-ntwrk/midnight-js-protocol/ledger';
@@ -126,11 +127,14 @@ async function main() {
 
   const initialPrivateState = createBBoardPrivateState(crypto.randomBytes(32));
   const signingKey = crypto.randomBytes(32).toString('hex');
-  const unprovenDeployTxData = await createUnprovenDeployTx(providers as any, {
-    compiledContract: CompiledBBoardContractContract,
-    initialPrivateState: initialPrivateState,
-    signingKey: signingKey,
-  } as any);
+  const unprovenDeployTxData = await createUnprovenDeployTx(
+    providers as any,
+    {
+      compiledContract: CompiledBBoardContractContract,
+      initialPrivateState: initialPrivateState,
+      signingKey: signingKey,
+    } as any,
+  );
 
   const contractAddress = unprovenDeployTxData.public.contractAddress;
   console.log(`DEPLOYED CONTRACT ADDRESS: ${contractAddress}`);

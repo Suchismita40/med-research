@@ -68,7 +68,10 @@ export class BBoardSimulator {
     return this.circuitContext.currentPrivateState;
   }
 
-  public registerDataset(title: string, category: string = "General Medical Research"): Ledger {
+  public registerDataset(
+    title: string,
+    category: string = "General Medical Research",
+  ): Ledger {
     this.circuitContext = this.contract.impureCircuits.registerDataset(
       this.circuitContext,
       title,

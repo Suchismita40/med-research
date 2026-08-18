@@ -14,7 +14,7 @@
     "build:start:preview": "npm run build:preview && npm run start",
     "ci": "npm run typecheck && npm run lint",
     "dev": "npm run copy:keys && next dev",
-    "lint": "eslint ./src",
+    "lint": "eslint app src",
     "start": "next start",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "preview": "vite preview",
