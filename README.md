@@ -24,7 +24,7 @@
 | Resource | Link / Value |
 | :--- | :--- |
 | **GitHub Repository** | [`https://github.com/Suchismita40/med-research.git`](https://github.com/Suchismita40/med-research.git) |
-| **Live Application (Vercel)** | [`https://med-research-fiem.vercel.app`](https://med-research-fiem.vercel.app) *(Alternate: [`https://med-research-bboard-ui.vercel.app`](https://med-research-bboard-ui.vercel.app))* |
+| **Live Application (Vercel)** | [`https://med-research-fiem.vercel.app`](https://med-research-fiem.vercel.app) |
 | **Midnight Network** | **Official Midnight Preprod (`preprod`)** |
 | **Contract Address** | `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97` |
 | **Deployment Transaction Hash** | `636ea733d93f66febf110812f06573cc7c5d8f19569b0d2cc88420fdeabaf169` |
@@ -408,16 +408,6 @@ private-medical-research-data-exchange/
 
 ---
 
-## 🖼️ Screenshot Paths
-
-| File Path | View Description |
-| :--- | :--- |
-| [`docs/screenshots/overview-page.png`](./docs/screenshots/overview-page.png) | **Overview Page**: Telemetry stats, confidentiality model, and quick actions |
-| [`docs/screenshots/dataset-register.png`](./docs/screenshots/dataset-register.png) | **Dataset Register**: Clinical cohort detail modal with on-chain identifiers |
-| [`docs/screenshots/activity.png`](./docs/screenshots/activity.png) | **Activity View**: Live immutable cryptographic audit trail and Preprod status |
-
----
-
 ## 📄 PROPOSAL.md Reference
 
 The [`PROPOSAL.md`](./PROPOSAL.md) document contains the complete initial specification, clinical motivation, and zero-knowledge architecture. It is fully synchronized with this implementation:
@@ -479,23 +469,6 @@ npm run build:vercel
   - `NEXT_PUBLIC_NETWORK_ID=preprod`
   - `NEXT_PUBLIC_CONTRACT_ADDRESS=e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97`
   - `NEXT_PUBLIC_PROOF_SERVER_URL=https://proof-server.preprod.midnight.network`
-
----
-
-## 📈 Current Implementation Status
-
-| Requirement | Status | Verified Evidence |
-| :--- | :--- | :--- |
-| **Next.js Application** | **VERIFIED** | Next.js 14.2 App Router, clean static export, 0 errors |
-| **Improved UI/UX** | **VERIFIED** | White + Olive + Soft Neutral design with single-line 4-tab navigation |
-| **Meaningful Compact Change** | **VERIFIED** | Categorization (`datasetCategory`) + Rate-limiting (`maxAccessLimit`) |
-| **Authentic Lace Wallet** | **VERIFIED** | Live `window.midnight.mnLace` connector with `mn_shield-...` identity |
-| **Midnight Preprod Deployment** | **VERIFIED** | Live on Preprod: `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97` |
-| **New GitHub Repository** | **VERIFIED** | Clean git history on `https://github.com/Suchismita40/med-research.git` |
-| **README Documentation** | **VERIFIED** | Comprehensive reviewer documentation with exact tables and verification metrics |
-| **PROPOSAL.md** | **VERIFIED** | Fully aligned proposal in repository root |
-| **Vercel Deployment** | **VERIFIED** | Live deployment at `https://med-research-fiem.vercel.app` |
-| **Automated Tests** | **VERIFIED** | 7/7 Vitest tests passing |
 
 ---
 
