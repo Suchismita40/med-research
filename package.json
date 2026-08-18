@@ -63,7 +63,7 @@
     "vite-plugin-wasm": "^3.6.0"
   },
   "scripts": {
-    "build": "npm run build -w contract && npm run build -w bboard-ui",
-    "build:vercel": "npm run build -w contract && npm run build:vercel -w bboard-ui"
+    "build": "npm run build -w contract && npm run build -w api && npm run build -w bboard-ui",
+    "build:vercel": "npm run build -w contract && npm run build -w api && npm run build:vercel -w bboard-ui"
   }
 }

@@ -22,6 +22,8 @@ const nextConfig = {
 
     config.resolve.alias = {
       ...config.resolve.alias,
+      '@midnight-ntwrk/bboard-api': path.resolve(__dirname, '../api/dist/index.js'),
+      '@midnight-ntwrk/bboard-contract': path.resolve(__dirname, '../contract/dist/index.js'),
       'isomorphic-ws': path.resolve(__dirname, 'src/utils/ws-fallback.js'),
       'ws': path.resolve(__dirname, 'src/utils/ws-fallback.js'),
       '@midnight-ntwrk/compact-runtime': path.resolve(__dirname, '../node_modules/@midnight-ntwrk/compact-runtime/dist/index.js'),

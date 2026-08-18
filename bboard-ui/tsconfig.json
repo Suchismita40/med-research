@@ -25,6 +25,12 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@midnight-ntwrk/bboard-api": [
+        "../api/src/index.ts"
+      ],
+      "@midnight-ntwrk/bboard-contract": [
+        "../contract/src/index.ts"
       ]
     }
   },
