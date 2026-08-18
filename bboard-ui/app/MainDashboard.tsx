@@ -31,7 +31,7 @@ export default function MainDashboard() {
 
           <div className="flex items-center gap-6">
             <a
-              href="https://preprod.midnight-explorer.com"
+              href="https://preprod.midnightexplorer.com"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-olive-900 inline-flex items-center gap-1 font-medium"

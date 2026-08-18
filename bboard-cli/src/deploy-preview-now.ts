@@ -117,14 +117,14 @@ async function main() {
       status: 'SUCCESS',
       networkId: 'preview',
       contractAddress: bboardApi.deployedContractAddress,
-      explorerUrl: `https://preview.midnight-explorer.com/contract/${bboardApi.deployedContractAddress}`,
+      explorerUrl: `https://preview.midnightexplorer.com/contract/${bboardApi.deployedContractAddress}`,
       timestamp: new Date().toISOString(),
     };
 
     fs.writeFileSync(RESULT_FILE, JSON.stringify(result, null, 2));
     console.log('=== DEPLOYMENT SUCCESSFUL ===');
     console.log(`Deployed Contract Address: ${bboardApi.deployedContractAddress}`);
-    console.log(`Explorer URL: https://preview.midnight-explorer.com/contract/${bboardApi.deployedContractAddress}`);
+    console.log(`Explorer URL: https://preview.midnightexplorer.com/contract/${bboardApi.deployedContractAddress}`);
     console.log('=============================');
   } else {
     console.log('Deployment halted: Zero dust balance.');

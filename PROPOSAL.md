@@ -36,7 +36,7 @@ The contract defines 6 zero-knowledge circuits in `contract/src/bboard.compact`:
 - **Contract Address**: `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97`
 - **Deployment Transaction Hash**: `636ea733d93f66febf110812f06573cc7c5d8f19569b0d2cc88420fdeabaf169`
 - **Deployer Public Address**: `mn_addr_preprod1efmkmrfgcdxhxyx2f7kfmchgrfme6prmvmyx3y23aae2t9zmnuzsqnh8xv`
-- **Explorer**: [https://preprod.midnight-explorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97](https://preprod.midnight-explorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97)
+- **Explorer**: [https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97)
 
 ## 6. Frontend & User Experience
 - **Framework**: Next.js App Router (14.2+) with TypeScript.

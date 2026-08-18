@@ -7,7 +7,7 @@
 
 ## 🏷️ Badges
 
-[![Midnight Preprod](https://img.shields.io/badge/Midnight-Preprod_Network-552be5?style=for-the-badge&logo=polkadot&logoColor=white)](https://preprod.midnight-explorer.com)
+[![Midnight Preprod](https://img.shields.io/badge/Midnight-Preprod_Network-552be5?style=for-the-badge&logo=polkadot&logoColor=white)](https://preprod.midnightexplorer.com)
 [![Next.js](https://img.shields.io/badge/Next.js-14.2_App_Router-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -53,7 +53,7 @@ The enhanced Compact smart contract is deployed on the official **Midnight Prepr
 | **Contract Address** | `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97` |
 | **Deployment Transaction Hash** | `636ea733d93f66febf110812f06573cc7c5d8f19569b0d2cc88420fdeabaf169` |
 | **Deployer Public Address** | `mn_addr_preprod1efmkmrfgcdxhxyx2f7kfmchgrfme6prmvmyx3y23aae2t9zmnuzsqnh8xv` |
-| **Midnight Explorer URL** | [View Preprod Contract](https://preprod.midnight-explorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
+| **Midnight Explorer URL** | [View Preprod Contract](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
 | **Proof Server Endpoint** | `https://proof-server.preprod.midnight.network` |
 | **Indexer GraphQL Endpoint** | `https://indexer.preprod.midnight.network/api/v4/graphql` |
 | **Indexer WebSocket Endpoint** | `wss://indexer.preprod.midnight.network/api/v4/graphql/ws` |
