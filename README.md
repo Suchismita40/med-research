@@ -18,11 +18,22 @@ The **Private Medical Research Data Exchange (MedEx)** is a production-grade, pr
 
 ---
 
+## 🎥 Demo Video
+
+**Watch the complete project demonstration on YouTube:**
+
+[![Watch Full Demo](https://img.shields.io/badge/▶%20WATCH%20FULL%20DEMO-YOUTUBE-red?style=for-the-badge&logo=youtube)](https://youtu.be/GmmMhwnHK4Y)
+
+[https://youtu.be/GmmMhwnHK4Y](https://youtu.be/GmmMhwnHK4Y)
+
+---
+
 ## 🔗 Project Links
 
 | Resource | Description | Status / Link |
 | :--- | :--- | :--- |
 | 🌐 **Live Application** | Deployed web application on Vercel | [Live Demo (Vercel)](https://med-research-fiem.vercel.app) |
+| 🎥 **Demo Video** | Interactive application walkthrough | [Watch Demo Video](https://youtu.be/GmmMhwnHK4Y) |
 | 🐙 **GitHub Repository** | Open-source monorepo codebase | [GitHub Repo](https://github.com/Suchismita40/med-research.git) |
 | ⚙️ **CI/CD Pipeline** | GitHub Actions build & verification pipeline | [View CI/CD Pipeline](https://github.com/Suchismita40/med-research/actions) |
 | 🔍 **Smart Contract Explorer** | Midnight Preprod Network Explorer | [Midnight Explorer](https://preprod.midnightexplorer.com) |

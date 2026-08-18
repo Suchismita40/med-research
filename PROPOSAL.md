@@ -1,5 +1,8 @@
 # 🏥 Project Proposal: Private Medical Research Data Exchange
 
+## 🎥 Demo Video
+- **Walkthrough Video**: [https://youtu.be/GmmMhwnHK4Y](https://youtu.be/GmmMhwnHK4Y)
+
 ## 1. Problem Statement
 Medical research institutions, pharmaceutical developers, and academic hospitals frequently need to collaborate and train machine learning models on clinical data. However, healthcare data sharing faces severe legal, ethical, and cryptographic roadblocks:
 - **HIPAA, GDPR, and Common Rule Compliance**: Exposing patient records or metadata on public blockchains is illegal and violates medical privacy.
