@@ -1,113 +1,113 @@
 # 🏥 Private Medical Research Data Exchange (MedEx)
 
-> **A Privacy-Preserving Decentralized Clinical Research & Dataset Governance Platform built on Midnight Protocol**  
-> *Enables accredited healthcare institutions and medical researchers to prove clinical eligibility, manage research cohort access quotas, and execute zero-knowledge selective disclosure queries — without disclosing patient PII, medical credentials, or private decryption keys on-chain.*
-
----
-
-## 🏷️ Badges
-
-[![Midnight Preprod](https://img.shields.io/badge/Midnight-Preprod_Network-552be5?style=for-the-badge&logo=polkadot&logoColor=white)](https://preprod.midnightexplorer.com)
+[![CI/CD Pipeline](https://github.com/Suchismita40/med-research/actions/workflows/ci.yml/badge.svg)](https://github.com/Suchismita40/med-research/actions)
+[![Midnight Network](https://img.shields.io/badge/Midnight-Preprod_Network-552be5?style=for-the-badge&logo=polkadot&logoColor=white)](https://preprod.midnightexplorer.com)
 [![Next.js](https://img.shields.io/badge/Next.js-14.2_App_Router-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Compact Version](https://img.shields.io/badge/Compact-v0.23_Enhanced-FF6B6B?style=for-the-badge)](https://midnight.network)
+[![Zero Knowledge](https://img.shields.io/badge/Zero--Knowledge-Compact%20v0.23-blue?style=for-the-badge)](https://midnight.network)
 [![Tests](https://img.shields.io/badge/Vitest-7%2F7_Passing-2ea44f?style=for-the-badge&logo=vitest&logoColor=white)](https://vitest.dev/)
 [![Lace Wallet](https://img.shields.io/badge/Lace_Wallet-Midnight_Integrated-4A154B?style=for-the-badge)](https://www.lace.io/)
-[![CI Status](https://img.shields.io/badge/GitHub_Actions-100%25_Passing-brightgreen?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Suchismita40/med-research/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 ---
 
-## 📌 Project Links / Quick Access
+# Project Overview
 
-| Resource | Link / Value |
-| :--- | :--- |
-| **GitHub Repository** | [`https://github.com/Suchismita40/med-research.git`](https://github.com/Suchismita40/med-research.git) |
-| **Live Application (Vercel)** | [`https://med-research-fiem.vercel.app`](https://med-research-fiem.vercel.app) |
-| **Midnight Network** | **Official Midnight Preprod (`preprod`)** |
-| **Contract Address** | `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97` |
-| **Deployment Transaction Hash** | `636ea733d93f66febf110812f06573cc7c5d8f19569b0d2cc88420fdeabaf169` |
-| **Explorer** | [View Preprod Contract on Midnight Explorer](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
-| **PROPOSAL.md** | [`PROPOSAL.md`](./PROPOSAL.md) |
+The **Private Medical Research Data Exchange (MedEx)** is a production-grade, privacy-preserving clinical research coordination dApp built on the **Midnight Network** using **Compact** smart contracts (v0.23), Zero-Knowledge proofs (zk-SNARKs), Next.js 14 App Router, and authentic **Midnight Lace Wallet** integration. MedEx enables accredited healthcare institutions, medical researchers, and clinical trial sponsors to register research cohorts, enforce confidential access quotas, and prove researcher authorization without disclosing sensitive Personal Health Information (PHI), patient identities, medical credentials, or private decryption keys on-chain.
 
 ---
 
-## 📸 Screenshots / Demonstration
+## 🔗 Project Links
 
-### 1. Overview Page
-![Overview Page](./docs/screenshots/overview-page.png)
-*Executive telemetry dashboard displaying live Midnight Preprod network status, active dataset counters, and permission metrics.*  
-*Visualizes the dual-state Zero-Knowledge architecture separating public on-chain ledger state from private off-chain witness state.*
-
----
-
-### 2. Dataset Register & Workspace
-![Dataset Register](./docs/screenshots/dataset-register.png)
-*Confidential clinical dataset registry modal displaying accredited healthcare institutions, sample cohort sizes, and on-chain identifiers.*  
-*Enables instant dataset registration and granular access governance through Compact smart contract circuits.*
+| Resource | Description | Status / Link |
+| :--- | :--- | :--- |
+| 🌐 **Live Application** | Deployed web application on Vercel | [Live Demo (Vercel)](https://med-research-fiem.vercel.app) |
+| 🐙 **GitHub Repository** | Open-source monorepo codebase | [GitHub Repo](https://github.com/Suchismita40/med-research.git) |
+| ⚙️ **CI/CD Pipeline** | GitHub Actions build & verification pipeline | [View CI/CD Pipeline](https://github.com/Suchismita40/med-research/actions) |
+| 🔍 **Smart Contract Explorer** | Midnight Preprod Network Explorer | [Midnight Explorer](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
+| 📄 **Product Proposal** | Complete project documentation and specs | [PROPOSAL.md](PROPOSAL.md) |
 
 ---
 
-### 3. Activity & Cryptographic Audit Trail
-![Activity](./docs/screenshots/activity.png)
-*Immutable on-chain cryptographic audit trail capturing verifiable transaction hashes and disclosed zero-knowledge proof commitments.*  
-*Provides real-time infrastructure telemetry for Midnight Preprod node synchronization, official prover connectivity, and contract state.*
+# Application Preview
+
+## Overview Page & Telemetry
+![Overview Page](docs/screenshots/overview-page.png)
+
+The overview dashboard provides a real-time executive view of the Private Medical Research Data Exchange, presenting live Midnight Preprod network telemetry, zero-knowledge verification statistics, registered cohort counters, authentic Midnight Lace Wallet connectivity, and the foundational dual-state privacy architecture.
 
 ---
 
-## 🚨 Problem Statement
+## Dataset Register & Workspace Modal
+![Dataset Register](docs/screenshots/dataset-register.png)
 
-Biomedical research collaboration and multi-center clinical trials face fundamental roadblocks in modern healthcare:
-1. **Regulatory Compliance (HIPAA, GDPR, Common Rule)**: Clinical patient data, medical records, and trial registries cannot be published on transparent public blockchains due to severe legal and confidentiality mandates.
-2. **Researcher Credential & License Exposure**: Medical researchers must establish their qualifications and institutional accreditation to access sensitive cohorts without exposing personal identities, physician license IDs, or cryptographic private keys to public scrutiny.
-3. **Unauthorized Bulk Harvesting & Scraping**: Traditional centralized systems and naive permission registries lack immutable rate-limiting and cryptographic quota enforcement, leaving datasets vulnerable to bulk scraping and unauthorized re-identification attacks.
-4. **Lack of Verifiable Auditability**: Healthcare organizations require mathematically verifiable proof that queries occurred within sanctioned quotas without exposing the sensitive queries or underlying patient health records.
+The Dataset Workspace enables accredited healthcare organizations to register new clinical cohorts with on-chain domain metadata (*Oncology & Genomics*, *Cardiology*, *Neurology*, *Immunology*, *Pediatrics*, *Ophthalmology*) and inspect cohort metadata, sample sizes, and on-chain cryptographic identifiers without exposing private patient records.
 
 ---
 
-## 💡 Solution Overview
+## Activity & Cryptographic Audit Trail
+![Activity](docs/screenshots/activity.png)
 
-The **Private Medical Research Data Exchange (MedEx)** solves these challenges by combining Midnight's dual-state Zero-Knowledge execution model with the **Compact** smart contract language:
-
-- **Confidential Dataset Registration**: Healthcare institutions register anonymized research cohorts with public domain categorization (*Oncology & Genomics*, *Cardiology*, *Neurology*, *Immunology*, *Pediatrics*, *Ophthalmology*) while preserving private key ownership.
-- **Zero-Knowledge Identity & Access Proofs**: Researchers submit zero-knowledge proofs demonstrating valid medical credentials and authorized identity without revealing underlying credentials on-chain.
-- **Cryptographic Access Quotas (`maxAccessLimit` & `accessCount`)**: Smart contract circuits mathematically enforce query limits per cohort, preventing data exhaustion and scraping.
-- **Dynamic Quota Renewal (`renewAccessQuota`)**: Verified dataset owners can extend researcher query quotas dynamically through cryptographic authorizations.
-- **Selective Disclosure Proof Commitments**: When queries are executed, the circuit produces persistent hash commitments (`lastProofHash`) logged immutably to the ledger without leaking patient data.
-- **Authentic Midnight Lace Wallet Integration**: Seamless browser-native cryptographic signing and address resolution via `window.midnight.mnLace`.
+The Activity tab provides an immutable on-chain cryptographic audit trail capturing verifiable transaction hashes, executed Compact circuits, disclosed zero-knowledge proof commitments, and real-time infrastructure telemetry for Midnight Preprod node synchronization and prover connectivity.
 
 ---
 
-## 🛡️ Why Midnight?
+# Problem Statement
 
-Conventional public blockchains (e.g., Ethereum, Solana) operate with global transparent state, making them fundamentally incompatible with healthcare privacy laws. Midnight is uniquely suited for MedEx:
+Biomedical research collaboration and multi-center clinical trials suffer from severe privacy and compliance roadblocks when attempting to coordinate on conventional public blockchains:
 
-- **Zero-Knowledge Circuits (ZK-SNARKs)**: Validate access criteria off-chain inside the client's prover, submitting only concise mathematical proofs to the blockchain.
-- **Private Witness State**: Medical credentials, local wallet secret keys, and patient record keys remain isolated in the browser and are never transmitted over the network.
-- **Selective Disclosure (`disclose()`)**: Allows contract developers to declare precisely what is revealed on-chain (e.g. public key commitments and quota limits) versus what remains completely shielded.
-- **Programmable Privacy**: The Compact smart contract language enforces complex multi-party state machine transitions while preserving confidentiality.
+- **HIPAA, GDPR, and Common Rule Violations**: Clinical patient health records, diagnostic summaries, and genomic sequence files cannot be stored or referenced transparently on public blockchains due to strict international confidentiality laws.
+- **Exposure of Medical Credentials & Licensing**: Researchers must prove their institutional accreditation, specialty, and authorization to query sensitive datasets, but traditional blockchains link their public keys, physical medical licenses, and transaction histories permanently.
+- **Unauthorized Bulk Harvesting & Data Scraping**: Centralized repositories and basic transparent smart contracts lack cryptographic rate-limiting, exposing cohorts to scraping and patient re-identification attacks.
+- **Lack of Verifiable Auditability**: Healthcare organizations require mathematically verifiable proof that data access occurred strictly within approved quotas without exposing the sensitive queries or underlying health records.
 
 ---
 
-## 🌟 Features
+# Solution Overview
+
+**MedEx** solves the healthcare data sharing dilemma by implementing Midnight Network's private-by-default dual-state architecture:
+
+- **Off-Chain Confidential Data & Credential Holding**: Patient decryption keys (`patientRecordKey`), local wallet signing keys (`localSecretKey`), and researcher qualifications (`medicalCredentialSecret`) are kept strictly off-chain within client browser memory.
+- **On-Chain Zero-Knowledge Verification**: The client's prover generates a ZK-SNARK proof certifying that:
+  1. The caller holds a valid, authorized researcher private credential (`medicalCredentialSecret != 0`).
+  2. The researcher possesses the correct patient record decryption key without disclosing it.
+  3. The dataset query count has not exceeded the authorized quota limit (`accessCount < maxAccessLimit`).
+  4. The derived cryptographic proof hash commitment (`lastProofHash`) is recorded to the public ledger for non-repudiation.
+- **Cryptographic Quota Renewal**: Authorized dataset owners can extend researcher query quotas dynamically (`renewAccessQuota`) via zero-knowledge authorization checks.
+- **Zero On-Chain Health Data Leakage**: No patient names, medical histories, or unshielded private keys are ever written to the public ledger.
+
+---
+
+## ✨ Features
 
 | Feature | Description | Implementation Status |
 | :--- | :--- | :--- |
-| **Dataset Registration** | Hospitals register clinical research cohorts with metadata on Midnight | **VERIFIED** |
-| **Dataset Categorization** | Domain classification (*Oncology*, *Cardiology*, *Neurology*, etc.) | **VERIFIED** |
-| **Access Quota Enforcement** | Mathematical limit (`maxAccessLimit`) enforced directly in ZK circuits | **VERIFIED** |
-| **Access Usage Tracking** | Incremental on-chain query counter (`accessCount`) and log counters | **VERIFIED** |
-| **ZK Access Proof Verification** | Selective disclosure proof commitments via `submitAccessProof` | **VERIFIED** |
-| **Access Quota Renewal** | Authorized dataset owner quota extension via `renewAccessQuota` | **VERIFIED** |
-| **Lace Wallet Integration** | Authentic `window.midnight.mnLace` connection and address resolution | **VERIFIED** |
-| **Preprod Deployment** | Contract deployed and verified on official Midnight Preprod Network | **VERIFIED** |
-| **4-Tab Responsive UI** | Modern White + Olive + Soft Neutral UI with single-line navigation | **VERIFIED** |
-| **Multi-Dataset Management** | Real-time registry with category filtering, search, and detail modal | **VERIFIED** |
+| 🏥 **Dataset Registration** | Hospitals register clinical cohorts with categorization on Midnight | **VERIFIED** |
+| 🏷️ **Domain Categorization** | Multi-discipline tagging (*Oncology*, *Cardiology*, *Neurology*, etc.) | **VERIFIED** |
+| ⏱️ **Access Quota Enforcement** | Mathematical query limit (`maxAccessLimit`) enforced directly in ZK circuits | **VERIFIED** |
+| 📈 **Access Usage Tracking** | Incremental on-chain query counter (`accessCount`) and log counters | **VERIFIED** |
+| 🔒 **ZK Access Proof Verification** | Selective disclosure proof commitments via `submitAccessProof` | **VERIFIED** |
+| 🔄 **Access Quota Renewal** | Authorized dataset owner quota extension via `renewAccessQuota` | **VERIFIED** |
+| 💼 **Authentic Lace Wallet** | Live `window.midnight.mnLace` connector with `mn_shield-...` identity | **VERIFIED** |
+| 📍 **Preprod Deployment** | Verified on Midnight Preprod blockchain (`e6033625...`) | **VERIFIED** |
+| 🎨 **4-Tab Responsive UI** | White + Olive + Soft Neutral UI with single-line navigation | **VERIFIED** |
+| 📜 **Immutable Audit Trail** | Live cryptographic log of all confirmed transactions & proof hashes | **VERIFIED** |
 
 ---
 
-## 🏗️ System Architecture
+# Why Midnight?
+
+Conventional public blockchains (such as Ethereum or Solana) operate with global transparent state, making them fundamentally incompatible with healthcare privacy laws. Midnight is uniquely suited for MedEx:
+
+- **Dual-State Architecture**: Separates transparent public ledger state from secret off-chain prover witness state.
+- **Zero-Knowledge Circuits (ZK-SNARKs)**: Executes complex business logic and access control off-chain, submitting only succinct mathematical proofs to the blockchain.
+- **Selective Disclosure (`disclose()`)**: Allows contract developers to declare precisely what is revealed on-chain (e.g., public key commitments and quota limits) versus what remains completely shielded.
+- **Programmable Privacy**: The Compact smart contract language enforces multi-party state machine transitions while preserving complete confidentiality.
+
+---
+
+# System Architecture
 
 ```
                                   +---------------------------------------+
@@ -157,14 +157,14 @@ Conventional public blockchains (e.g., Ethereum, Solana) operate with global tra
 
 ---
 
-## 🔒 Privacy Model
+# Privacy Model
 
-| Data / State Element | Public or Private | Where Stored | Cryptographic & Regulatory Rationale |
+| Data / State Element | Public or Private | Storage Location | Cryptographic & Regulatory Rationale |
 | :--- | :--- | :--- | :--- |
 | **Dataset Title & Category** | **Public** | On-Chain Ledger State | Enables global medical research discovery and cross-institution cohort identification. |
 | **Access Quota Limits** | **Public** | On-Chain Ledger State | Transparently enforces rate limiting (`maxAccessLimit`) and remaining query capacity. |
 | **Access Usage Count** | **Public** | On-Chain Ledger State | Publicly tracks the number of verified ZK queries executed (`accessCount`). |
-| **Disclosed Proof Hashes** | **Public** | On-Chain Ledger State | Verifiable cryptographic hash commitment (`lastProofHash`) proving valid execution without exposing data. |
+| **Disclosed Proof Hashes** | **Public** | On-Chain Ledger State | Verifiable cryptographic hash commitment (`lastProofHash`) proving valid execution without data exposure. |
 | **Hospital Owner Secret Key** | **Private** | Client Prover Witness | Secret key (`localSecretKey`) used to derive public ownership without exposing seed material. |
 | **Researcher Medical Credential** | **Private** | Client Prover Witness | Secret credential (`medicalCredentialSecret`) proven inside the circuit without disclosing physician license ID. |
 | **Patient Record Encryption Key** | **Private** | Client Prover Witness | Symmetric key (`patientRecordKey`) for patient data decryption; never broadcasted over network (HIPAA compliant). |
@@ -172,10 +172,10 @@ Conventional public blockchains (e.g., Ethereum, Solana) operate with global tra
 
 ---
 
-## ⚡ Zero-Knowledge / Compact Circuit Implementation
+# Zero-Knowledge / Compact Circuit Implementation
 
-- **Contract Path**: [`contract/src/bboard.compact`](./contract/src/bboard.compact)
-- **Language Version**: `pragma language_version 0.23;`
+- **Contract Path**: [`contract/src/bboard.compact`](contract/src/bboard.compact)
+- **Compiler Pragma**: `pragma language_version 0.23;`
 - **Standard Library**: `import CompactStandardLibrary;`
 
 ### Compact Circuit Specifications
@@ -192,7 +192,7 @@ Conventional public blockchains (e.g., Ethereum, Solana) operate with global tra
 
 ---
 
-## 🔄 User Workflow
+# User Workflow
 
 ```
 1. Connect Lace Wallet
@@ -218,7 +218,7 @@ Conventional public blockchains (e.g., Ethereum, Solana) operate with global tra
 
 ---
 
-## 💼 Authentic Lace Wallet Integration
+# Authentic Lace Wallet Integration
 
 | Integration Item | Verified Implementation Details |
 | :--- | :--- |
@@ -232,7 +232,7 @@ Conventional public blockchains (e.g., Ethereum, Solana) operate with global tra
 
 ---
 
-## 📍 Midnight Preprod Deployment
+# Midnight Preprod Deployment
 
 The enhanced smart contract is permanently deployed on the official **Midnight Preprod Network**:
 
@@ -242,7 +242,7 @@ The enhanced smart contract is permanently deployed on the official **Midnight P
 | **Deployer Public Address** | `mn_addr_preprod1efmkmrfgcdxhxyx2f7kfmchgrfme6prmvmyx3y23aae2t9zmnuzsqnh8xv` |
 | **Contract Address** | `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97` |
 | **Deployment Transaction Hash** | `636ea733d93f66febf110812f06573cc7c5d8f19569b0d2cc88420fdeabaf169` |
-| **Midnight Explorer** | [https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
+| **Midnight Explorer** | [View Preprod Contract](https://preprod.midnightexplorer.com/contract/e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97) |
 | **Proof Server Endpoint** | `https://proof-server.preprod.midnight.network` |
 | **Preprod Indexer GraphQL** | `https://indexer.preprod.midnight.network/api/v4/graphql` |
 | **Preprod Indexer WebSocket** | `wss://indexer.preprod.midnight.network/api/v4/graphql/ws` |
@@ -250,7 +250,7 @@ The enhanced smart contract is permanently deployed on the official **Midnight P
 
 ---
 
-## 🧪 Deployment Verification & Regression Results
+# Deployment Verification & Regression Results
 
 ### On-Chain Confirmation
 - Smart contract address `e603362546ca047cb7c596389c20fde9bdf1b27489f14137d68fd9cd4a939d97` verified on Midnight Preprod blockchain.
@@ -307,7 +307,7 @@ Route (app)                              Size     First Load JS
 
 ---
 
-## 🔍 Verification Checkpoints
+# Verification Checkpoints
 
 | Audit Item | Status | Verified Technical Details |
 | :--- | :--- | :--- |
@@ -315,14 +315,14 @@ Route (app)                              Size     First Load JS
 | **Lace Wallet Documentation** | **PASS** | Authentic `window.midnight.mnLace` connector with shielded address resolution |
 | **Privacy Documentation** | **PASS** | Explicit public vs private witness classification table |
 | **Contract Documentation** | **PASS** | Compact circuits, assertions, state machines, and disclosures documented |
-| **Screenshot Placeholders** | **PASS** | All screenshots verified from live running application in `docs/screenshots/` |
+| **Screenshot Verification** | **PASS** | All screenshots verified from live running application in `docs/screenshots/` |
 | **PROPOSAL.md Verification** | **PASS** | Full architectural alignment with `PROPOSAL.md` |
 | **Test Suite Verification** | **PASS** | 7/7 unit tests passing with vitest simulator |
 | **Next.js Production Build** | **PASS** | Static export (`output: 'export'`) builds with 0 errors |
 
 ---
 
-## 📊 Detailed Phase Summary
+# Detailed Phase Summary
 
 | Section | Item | Status / Details |
 | :--- | :--- | :--- |
@@ -343,7 +343,7 @@ Route (app)                              Size     First Load JS
 
 ---
 
-## 🔬 Testing Summary
+# Testing Summary
 
 | Test Category | Command / Method | Result |
 | :--- | :--- | :--- |
@@ -355,7 +355,7 @@ Route (app)                              Size     First Load JS
 
 ---
 
-## 🔐 Security & Confidentiality
+# Security & Confidentiality
 
 - **Zero Private Key Exposure**: Private keys, wallet seeds, and local leveldb stores are strictly excluded via `.gitignore`.
 - **Zero-Knowledge Witness Protection**: Physician qualifications and patient record decryption keys remain on client devices.
@@ -364,7 +364,7 @@ Route (app)                              Size     First Load JS
 
 ---
 
-## 📁 Repository Structure
+# Repository Structure
 
 ```
 private-medical-research-data-exchange/
@@ -408,18 +408,7 @@ private-medical-research-data-exchange/
 
 ---
 
-## 📄 PROPOSAL.md Reference
-
-The [`PROPOSAL.md`](./PROPOSAL.md) document contains the complete initial specification, clinical motivation, and zero-knowledge architecture. It is fully synchronized with this implementation:
-- **Problem Statement & Clinical Use Case**
-- **Solution Overview & Privacy Model**
-- **Compact Contract Circuit Architecture**
-- **Verified Preprod Deployment Metrics**
-- **Lace Wallet Integration & Security**
-
----
-
-## 💻 Local Development & Setup
+# Local Development & Setup
 
 ### Prerequisites
 - **Node.js**: `v20.x` or `v22.x`
@@ -460,7 +449,7 @@ npm run build:vercel
 
 ---
 
-## 🚀 Deployment Configuration
+# Deployment Configuration
 
 - **Target Network**: Official Midnight Preprod (`preprod`)
 - **Hosting Platform**: Vercel (Next.js Static Export)
@@ -472,7 +461,7 @@ npm run build:vercel
 
 ---
 
-## ✅ Final Submission Checklist
+# Final Submission Checklist
 
 | Requirement | Status | Evidence |
 | :--- | :--- | :--- |
@@ -493,6 +482,6 @@ npm run build:vercel
 
 ---
 
-## 📜 License
+# License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
