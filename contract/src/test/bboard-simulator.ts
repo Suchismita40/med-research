@@ -68,10 +68,11 @@ export class BBoardSimulator {
     return this.circuitContext.currentPrivateState;
   }
 
-  public registerDataset(title: string): Ledger {
+  public registerDataset(title: string, category: string = "General Medical Research"): Ledger {
     this.circuitContext = this.contract.impureCircuits.registerDataset(
       this.circuitContext,
       title,
+      category,
     ).context;
     return ledger(this.circuitContext.currentQueryContext.state);
   }
@@ -104,6 +105,18 @@ export class BBoardSimulator {
       this.circuitContext,
       datasetId,
       patientRecordHash,
+    ).context;
+    return ledger(this.circuitContext.currentQueryContext.state);
+  }
+
+  public renewAccessQuota(
+    datasetId: Uint8Array,
+    additionalQuota: bigint | number,
+  ): Ledger {
+    this.circuitContext = this.contract.impureCircuits.renewAccessQuota(
+      this.circuitContext,
+      datasetId,
+      BigInt(additionalQuota),
     ).context;
     return ledger(this.circuitContext.currentQueryContext.state);
   }

@@ -1,0 +1,44 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  body {
+    background-color: #f8f9f5;
+    color: #1f2618;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+.bg-olive-gradient {
+  background: linear-gradient(135deg, #3f5123 0%, #556b2f 50%, #6b7d41 100%);
+}
+
+.bg-olive-light-gradient {
+  background: linear-gradient(180deg, #f8f9f5 0%, #e8eddf 100%);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid #e4e8df;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f9f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b1c29b;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8a9a5b;
+}

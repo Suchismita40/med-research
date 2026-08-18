@@ -9,7 +9,9 @@ export type Witnesses<PS> = {
 }
 
 export type ImpureCircuits<PS> = {
-  registerDataset(context: __compactRuntime.CircuitContext<PS>, title_0: string): __compactRuntime.CircuitResults<PS, []>;
+  registerDataset(context: __compactRuntime.CircuitContext<PS>,
+                  title_0: string,
+                  category_0: string): __compactRuntime.CircuitResults<PS, []>;
   requestAccess(context: __compactRuntime.CircuitContext<PS>,
                 datasetId_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   grantPermission(context: __compactRuntime.CircuitContext<PS>,
@@ -18,12 +20,17 @@ export type ImpureCircuits<PS> = {
   submitAccessProof(context: __compactRuntime.CircuitContext<PS>,
                     datasetId_0: Uint8Array,
                     patientRecordHash_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
+  renewAccessQuota(context: __compactRuntime.CircuitContext<PS>,
+                   datasetId_0: Uint8Array,
+                   additionalQuota_0: bigint): __compactRuntime.CircuitResults<PS, []>;
   revokeAccess(context: __compactRuntime.CircuitContext<PS>,
                datasetId_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
 }
 
 export type ProvableCircuits<PS> = {
-  registerDataset(context: __compactRuntime.CircuitContext<PS>, title_0: string): __compactRuntime.CircuitResults<PS, []>;
+  registerDataset(context: __compactRuntime.CircuitContext<PS>,
+                  title_0: string,
+                  category_0: string): __compactRuntime.CircuitResults<PS, []>;
   requestAccess(context: __compactRuntime.CircuitContext<PS>,
                 datasetId_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   grantPermission(context: __compactRuntime.CircuitContext<PS>,
@@ -32,6 +39,9 @@ export type ProvableCircuits<PS> = {
   submitAccessProof(context: __compactRuntime.CircuitContext<PS>,
                     datasetId_0: Uint8Array,
                     patientRecordHash_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
+  renewAccessQuota(context: __compactRuntime.CircuitContext<PS>,
+                   datasetId_0: Uint8Array,
+                   additionalQuota_0: bigint): __compactRuntime.CircuitResults<PS, []>;
   revokeAccess(context: __compactRuntime.CircuitContext<PS>,
                datasetId_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
 }
@@ -41,7 +51,9 @@ export type PureCircuits = {
 }
 
 export type Circuits<PS> = {
-  registerDataset(context: __compactRuntime.CircuitContext<PS>, title_0: string): __compactRuntime.CircuitResults<PS, []>;
+  registerDataset(context: __compactRuntime.CircuitContext<PS>,
+                  title_0: string,
+                  category_0: string): __compactRuntime.CircuitResults<PS, []>;
   requestAccess(context: __compactRuntime.CircuitContext<PS>,
                 datasetId_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   grantPermission(context: __compactRuntime.CircuitContext<PS>,
@@ -50,6 +62,9 @@ export type Circuits<PS> = {
   submitAccessProof(context: __compactRuntime.CircuitContext<PS>,
                     datasetId_0: Uint8Array,
                     patientRecordHash_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
+  renewAccessQuota(context: __compactRuntime.CircuitContext<PS>,
+                   datasetId_0: Uint8Array,
+                   additionalQuota_0: bigint): __compactRuntime.CircuitResults<PS, []>;
   revokeAccess(context: __compactRuntime.CircuitContext<PS>,
                datasetId_0: Uint8Array): __compactRuntime.CircuitResults<PS, []>;
   publicKey(context: __compactRuntime.CircuitContext<PS>,
@@ -60,12 +75,15 @@ export type Circuits<PS> = {
 export type Ledger = {
   readonly state: State;
   readonly datasetTitle: { is_some: boolean, value: string };
+  readonly datasetCategory: { is_some: boolean, value: string };
   readonly datasetCount: bigint;
   readonly activeResearcherPk: Uint8Array;
   readonly auditLogCount: bigint;
   readonly lastProofHash: Uint8Array;
   readonly sequence: bigint;
   readonly owner: Uint8Array;
+  readonly maxAccessLimit: bigint;
+  readonly accessCount: bigint;
 }
 
 export type ContractReferenceLocations = any;

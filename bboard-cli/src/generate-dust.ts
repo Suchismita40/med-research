@@ -26,38 +26,41 @@ export const getUnshieldedSeed = (seed: string): Uint8Array<ArrayBufferLike> => 
 export const generateDust = async (
   logger: Logger,
   walletSeed: string,
-  unshieldedState: UnshieldedWalletState,
+  _initialUnshieldedState: UnshieldedWalletState,
   walletFacade: WalletFacade,
 ) => {
-  const dustState = await rx.firstValueFrom(walletFacade.dust.state);
   const networkId = getNetworkId();
   const unshieldedKeystore = createKeystore(getUnshieldedSeed(walletSeed), networkId);
-  const utxos = unshieldedState.availableCoins;
-
-  if (!utxos || utxos.length === 0) {
-    logger.info('No UTXOs found for dust generation.');
-    return;
-  }
-
-  logger.info(`Generating dust with ${utxos.length} UTXOs...`);
 
   let txId: string | undefined;
-  for (let attempt = 1; attempt <= 3; attempt++) {
+
+  for (let attempt = 1; attempt <= 5; attempt++) {
     try {
+      const currentUnshieldedState = await rx.firstValueFrom(walletFacade.unshielded.state);
+      const currentDustState = await rx.firstValueFrom(walletFacade.dust.state);
+      const utxos = currentUnshieldedState.availableCoins;
+
+      if (!utxos || utxos.length === 0) {
+        logger.info('No UTXOs found for dust generation.');
+        return;
+      }
+
+      logger.info(`Attempt ${attempt}: Registering dust with ${utxos.length} UTXOs on ${networkId}...`);
+
       const recipe = await walletFacade.registerNightUtxosForDustGeneration(
         utxos,
         unshieldedKeystore.getPublicKey(),
         (payload) => unshieldedKeystore.signData(payload),
-        dustState.address,
+        currentDustState.address,
       );
       const transaction = await walletFacade.finalizeRecipe(recipe);
       txId = await walletFacade.submitTransaction(transaction);
-      logger.info(`Dust generation transaction submitted with txId: ${txId} (attempt ${attempt})`);
+      logger.info(`Dust generation transaction successfully submitted on-chain! TxId: ${txId}`);
       break;
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
-      logger.info(`Dust generation attempt ${attempt} failed: ${msg}`);
-      if (attempt < 3) await new Promise((r) => setTimeout(r, 2000));
+      logger.info(`Dust generation attempt ${attempt} note: ${msg}`);
+      await new Promise((r) => setTimeout(r, 4000));
     }
   }
 

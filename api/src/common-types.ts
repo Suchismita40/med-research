@@ -2,7 +2,7 @@
 
 import { type MidnightProviders } from '@midnight-ntwrk/midnight-js-types';
 import { type FoundContract } from '@midnight-ntwrk/midnight-js-contracts';
-import type { State, BBoardPrivateState, Contract, Witnesses } from '../../contract/src/index.js';
+import type { State, BBoardPrivateState, Contract, Witnesses } from '@midnight-ntwrk/bboard-contract';
 
 export type ContractAddress = string;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,9 +27,12 @@ export type BBoardDerivedState = {
   readonly state: State;
   readonly sequence: bigint;
   readonly datasetTitle: string | undefined;
+  readonly datasetCategory: string | undefined;
   readonly datasetCount: bigint;
   readonly activeResearcherPk: Uint8Array;
   readonly auditLogCount: bigint;
   readonly lastProofHash: Uint8Array;
+  readonly maxAccessLimit: bigint;
+  readonly accessCount: bigint;
   readonly isOwner: boolean;
 };

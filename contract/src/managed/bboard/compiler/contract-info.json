@@ -14,6 +14,13 @@
             "type-name": "Opaque",
             "tsType": "string"
           }
+        },
+        {
+          "name": "category",
+          "type": {
+            "type-name": "Opaque",
+            "tsType": "string"
+          }
         }
       ],
       "result-type": {
@@ -84,6 +91,32 @@
           "type": {
             "type-name": "Bytes",
             "length": 32
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Tuple",
+        "types": [
+        ]
+      }
+    },
+    {
+      "name": "renewAccessQuota",
+      "pure": false,
+      "proof": true,
+      "arguments": [
+        {
+          "name": "datasetId",
+          "type": {
+            "type-name": "Bytes",
+            "length": 32
+          }
+        },
+        {
+          "name": "additionalQuota",
+          "type": {
+            "type-name": "Uint",
+            "maxval": 4294967295
           }
         }
       ],
@@ -212,14 +245,39 @@
       }
     },
     {
-      "name": "datasetCount",
+      "name": "datasetCategory",
       "index": 2,
+      "exported": true,
+      "storage": "Cell",
+      "type": {
+        "type-name": "Struct",
+        "name": "Maybe",
+        "elements": [
+          {
+            "name": "is_some",
+            "type": {
+              "type-name": "Boolean"
+            }
+          },
+          {
+            "name": "value",
+            "type": {
+              "type-name": "Opaque",
+              "tsType": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "datasetCount",
+      "index": 3,
       "exported": true,
       "storage": "Counter"
     },
     {
       "name": "activeResearcherPk",
-      "index": 3,
+      "index": 4,
       "exported": true,
       "storage": "Cell",
       "type": {
@@ -229,13 +287,13 @@
     },
     {
       "name": "auditLogCount",
-      "index": 4,
+      "index": 5,
       "exported": true,
       "storage": "Counter"
     },
     {
       "name": "lastProofHash",
-      "index": 5,
+      "index": 6,
       "exported": true,
       "storage": "Cell",
       "type": {
@@ -245,19 +303,31 @@
     },
     {
       "name": "sequence",
-      "index": 6,
+      "index": 7,
       "exported": true,
       "storage": "Counter"
     },
     {
       "name": "owner",
-      "index": 7,
+      "index": 8,
       "exported": true,
       "storage": "Cell",
       "type": {
         "type-name": "Bytes",
         "length": 32
       }
+    },
+    {
+      "name": "maxAccessLimit",
+      "index": 9,
+      "exported": true,
+      "storage": "Counter"
+    },
+    {
+      "name": "accessCount",
+      "index": 10,
+      "exported": true,
+      "storage": "Counter"
     }
   ]
 }

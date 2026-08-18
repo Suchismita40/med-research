@@ -9,13 +9,13 @@ import {
   type DeployedBBoardContract,
   bboardPrivateStateKey,
 } from './common-types.js';
-import * as BBoard from '../../contract/src/index.js';
-import { CompiledBBoardContractContract, State } from '../../contract/src/index.js';
+import * as BBoard from '@midnight-ntwrk/bboard-contract';
+import { CompiledBBoardContractContract, State } from '@midnight-ntwrk/bboard-contract';
 import * as utils from './utils/index.js';
 import { deployContract, findDeployedContract } from '@midnight-ntwrk/midnight-js-contracts';
 import { combineLatest, map, tap, from, catchError, of, type Observable, BehaviorSubject } from 'rxjs';
 import { toHex } from '@midnight-ntwrk/midnight-js-utils';
-import { BBoardPrivateState, createBBoardPrivateState } from '../../contract/src/witnesses.js';
+import { BBoardPrivateState, createBBoardPrivateState } from '@midnight-ntwrk/bboard-contract';
 
 export const convertFieldToBytes = (len: number, num: bigint): Uint8Array => {
   const arr = new Uint8Array(len);
@@ -32,10 +32,11 @@ export interface DeployedBBoardAPI {
   readonly deployedContract: DeployedBBoardContract;
   readonly state$: Observable<BBoardDerivedState>;
 
-  registerDataset: (title: string) => Promise<void>;
+  registerDataset: (title: string, category?: string) => Promise<void>;
   requestAccess: (datasetId: Uint8Array) => Promise<void>;
   grantPermission: (datasetId: Uint8Array, researcherPk: Uint8Array) => Promise<void>;
   submitAccessProof: (datasetId: Uint8Array, patientRecordHash: Uint8Array) => Promise<void>;
+  renewAccessQuota: (datasetId: Uint8Array, additionalQuota: bigint) => Promise<void>;
   revokeAccess: (datasetId: Uint8Array) => Promise<void>;
 }
 
@@ -54,10 +55,13 @@ export class BBoardAPI implements DeployedBBoardAPI {
       state: State.NONE,
       sequence: 0n,
       datasetTitle: undefined,
+      datasetCategory: undefined,
       datasetCount: 0n,
       activeResearcherPk: new Uint8Array(32),
       auditLogCount: 0n,
       lastProofHash: new Uint8Array(32),
+      maxAccessLimit: 5n,
+      accessCount: 0n,
       isOwner: true,
     };
 
@@ -94,10 +98,13 @@ export class BBoardAPI implements DeployedBBoardAPI {
           state: ledgerState.state,
           sequence: ledgerState.sequence,
           datasetTitle: ledgerState.datasetTitle.is_some ? ledgerState.datasetTitle.value : undefined,
+          datasetCategory: ledgerState.datasetCategory.is_some ? ledgerState.datasetCategory.value : undefined,
           datasetCount: ledgerState.datasetCount,
           activeResearcherPk: ledgerState.activeResearcherPk,
           auditLogCount: ledgerState.auditLogCount,
           lastProofHash: ledgerState.lastProofHash,
+          maxAccessLimit: ledgerState.maxAccessLimit ?? 5n,
+          accessCount: ledgerState.accessCount ?? 0n,
           isOwner: toHex(ledgerState.owner) === toHex(hashedSecretKey),
         };
       },
@@ -141,10 +148,11 @@ export class BBoardAPI implements DeployedBBoardAPI {
     }
   }
 
-  async registerDataset(title: string): Promise<void> {
+  async registerDataset(title: string, category: string = 'General Medical Research'): Promise<void> {
     const currentState = this.internalState$.value;
-    await this.executeTx(this.deployedContract.callTx.registerDataset(title), 'registerDataset', {
+    await this.executeTx(this.deployedContract.callTx.registerDataset(title, category), 'registerDataset', {
       datasetTitle: title,
+      datasetCategory: category,
       datasetCount: currentState.datasetCount + 1n,
       auditLogCount: currentState.auditLogCount + 1n,
     });
@@ -174,6 +182,19 @@ export class BBoardAPI implements DeployedBBoardAPI {
       'submitAccessProof',
       {
         lastProofHash: patientRecordHash,
+        accessCount: currentState.accessCount + 1n,
+        auditLogCount: currentState.auditLogCount + 1n,
+      },
+    );
+  }
+
+  async renewAccessQuota(datasetId: Uint8Array, additionalQuota: bigint): Promise<void> {
+    const currentState = this.internalState$.value;
+    await this.executeTx(
+      this.deployedContract.callTx.renewAccessQuota(datasetId, additionalQuota),
+      'renewAccessQuota',
+      {
+        maxAccessLimit: currentState.maxAccessLimit + additionalQuota,
         auditLogCount: currentState.auditLogCount + 1n,
       },
     );

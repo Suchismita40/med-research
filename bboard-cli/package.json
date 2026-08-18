@@ -14,7 +14,8 @@
     "preview-remote": "node --experimental-specifier-resolution=node --loader ts-node/esm src/launcher/preview.ts",
     "preview-deploy": "node --experimental-specifier-resolution=node --loader ts-node/esm src/deploy-preview-contract.ts",
     "preprod-remote": "node --experimental-specifier-resolution=node --loader ts-node/esm src/launcher/preprod.ts",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "preprod-deploy": "NODE_OPTIONS=\"--max-old-space-size=4096\" node --experimental-specifier-resolution=node --loader ts-node/esm src/deploy-preprod-contract.ts"
   },
   "devDependencies": {
     "@types/json-schema": "^7.0.15",

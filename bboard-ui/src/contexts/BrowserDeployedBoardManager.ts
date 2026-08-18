@@ -19,8 +19,8 @@ import {
   type BBoardProviders,
   type DeployedBBoardAPI,
   type BBoardDerivedState,
-} from '../../../api/src/index';
-import { State } from '../../../contract/src/index';
+} from '@midnight-ntwrk/bboard-api';
+import { State } from '@midnight-ntwrk/bboard-contract';
 import { type ContractAddress, fromHex, toHex } from '@midnight-ntwrk/midnight-js-protocol/compact-runtime';
 import { BehaviorSubject as RxBehaviorSubject, type Observable as RxObservable } from 'rxjs';
 import {
@@ -76,6 +76,9 @@ class MockBBoardAPI implements DeployedBBoardAPI {
       datasetTitle: undefined,
       datasetCount: 0n,
       activeResearcherPk: new Uint8Array(32),
+      datasetCategory: 'Genomics',
+      maxAccessLimit: 100n,
+      accessCount: 0n,
       auditLogCount: 0n,
       lastProofHash: new Uint8Array(32),
       isOwner: true,
@@ -109,6 +112,12 @@ class MockBBoardAPI implements DeployedBBoardAPI {
     await Promise.resolve();
     const s = this._state$.value;
     this._update({ lastProofHash: patientRecordHash, auditLogCount: s.auditLogCount + 1n });
+  }
+
+  async renewAccessQuota(_datasetId: Uint8Array, _additionalQuota: bigint): Promise<void> {
+    await Promise.resolve();
+    const s = this._state$.value;
+    this._update({ auditLogCount: s.auditLogCount + 1n });
   }
 
   async revokeAccess(_datasetId: Uint8Array): Promise<void> {
