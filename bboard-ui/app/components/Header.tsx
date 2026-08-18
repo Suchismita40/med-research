@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Shield, Wallet, RefreshCw } from 'lucide-react';
+import { Shield, Wallet, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { useDeployedBoardContext } from '../../src/hooks/useDeployedBoardContext';
 
 interface HeaderProps {
@@ -20,6 +20,9 @@ export function Header({ activeTab, setActiveTab }: HeaderProps) {
     { id: 'analytics', label: 'Analytics' },
     { id: 'docs', label: 'Documentation' },
   ];
+
+  const isConnected = state.status === 'connected';
+  const isConnecting = state.status === 'connecting';
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-surface-border shadow-subtle">
@@ -65,19 +68,25 @@ export function Header({ activeTab, setActiveTab }: HeaderProps) {
 
             <button
               onClick={connectWallet}
-              disabled={state.status === 'connecting'}
-              className="flex items-center gap-2.5 px-5 py-2.5 bg-olive-800 hover:bg-olive-900 text-white rounded-xl font-medium text-sm transition-all shadow-subtle hover:shadow-hover active:scale-[0.98]"
+              disabled={isConnecting}
+              className={`flex items-center gap-2.5 px-5 py-2.5 rounded-xl font-medium text-sm transition-all shadow-subtle hover:shadow-hover active:scale-[0.98] ${
+                isConnected
+                  ? 'bg-olive-900 text-emerald-300 border border-emerald-500/30'
+                  : 'bg-olive-800 hover:bg-olive-900 text-white'
+              }`}
             >
-              {state.status === 'connecting' ? (
-                <RefreshCw className="w-4 h-4 animate-spin" />
+              {isConnecting ? (
+                <RefreshCw className="w-4 h-4 animate-spin text-olive-200" />
+              ) : isConnected ? (
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               ) : (
                 <Wallet className="w-4 h-4 text-olive-200" />
               )}
               <span>
-                {state.connectedWallet?.name
-                  ? state.connectedWallet.name
-                  : state.status === 'connected'
-                  ? 'Lace Wallet Connected'
+                {isConnecting
+                  ? 'Authorizing Lace...'
+                  : isConnected
+                  ? state.connectedWallet?.address || 'Lace Connected'
                   : 'Connect Lace Wallet'}
               </span>
             </button>

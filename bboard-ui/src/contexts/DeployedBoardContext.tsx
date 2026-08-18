@@ -89,21 +89,13 @@ export const DeployedBoardProvider: React.FC<{
       if (typeof window === 'undefined') return;
 
       const midnightObj = (window as any).midnight;
-
-      // 1. Check for Lace Wallet extension
-      if (!midnightObj) {
-        // Allow up to 1.5 seconds for extension injection
-        await new Promise((resolve) => setTimeout(resolve, 500));
-      }
-
-      const activeMidnight = (window as any).midnight;
       let walletConnector: any = null;
 
-      if (activeMidnight) {
-        if (activeMidnight.mnLace) {
-          walletConnector = activeMidnight.mnLace;
+      if (midnightObj) {
+        if (midnightObj.mnLace) {
+          walletConnector = midnightObj.mnLace;
         } else {
-          const wallets = Object.values(activeMidnight);
+          const wallets = Object.values(midnightObj);
           if (wallets.length > 0) {
             walletConnector = wallets[0];
           }
@@ -111,29 +103,13 @@ export const DeployedBoardProvider: React.FC<{
       }
 
       if (walletConnector && typeof walletConnector.connect === 'function') {
-        const networkId = (process.env.NEXT_PUBLIC_NETWORK_ID || 'preprod').toLowerCase();
-        logger.info({ networkId }, 'Connecting to Midnight Lace Wallet extension...');
+        const networkId = 'preprod';
+        logger.info({ networkId }, 'Calling walletConnector.connect...');
         
         const api = await walletConnector.connect(networkId);
         setConnectedApi(api);
 
-        let shieldedAddress = '';
-        let unshieldedAddress = '';
-
-        try {
-          if (typeof api.getShieldedAddresses === 'function') {
-            const addrs = await api.getShieldedAddresses();
-            shieldedAddress = addrs.shieldedCoinPublicKey || '';
-          }
-          if (typeof api.getUnshieldedAddress === 'function') {
-            unshieldedAddress = await api.getUnshieldedAddress();
-          }
-        } catch (e) {
-          logger.warn({ err: e }, 'Address extraction note');
-        }
-
-        const displayAddr = unshieldedAddress || (shieldedAddress ? `${shieldedAddress.slice(0, 10)}...${shieldedAddress.slice(-6)}` : 'Preprod Wallet');
-
+        // Immediately mark connected
         setState((prev) => ({
           ...prev,
           status: 'connected',
@@ -141,35 +117,69 @@ export const DeployedBoardProvider: React.FC<{
           connectedWallet: {
             name: walletConnector.name || 'Midnight Lace',
             rdns: 'midnight.mnLace',
-            address: displayAddr,
+            address: 'mn_addr_preprod (Active)',
           },
           error: undefined,
         }));
-        logger.info('Midnight Lace Wallet connected successfully!');
+
+        // Non-blocking address extraction
+        void (async () => {
+          try {
+            let addr = '';
+            if (typeof api.getUnshieldedAddress === 'function') {
+              const res = await Promise.race([
+                api.getUnshieldedAddress(),
+                new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 2000)),
+              ]);
+              if (res) addr = String(res);
+            }
+            if (!addr && typeof api.getShieldedAddresses === 'function') {
+              const addrs: any = await Promise.race([
+                api.getShieldedAddresses(),
+                new Promise((_, r) => setTimeout(() => r(new Error('timeout')), 2000)),
+              ]);
+              if (addrs && addrs.shieldedCoinPublicKey) {
+                const key = String(addrs.shieldedCoinPublicKey);
+                addr = `${key.slice(0, 10)}...${key.slice(-6)}`;
+              }
+            }
+            if (addr) {
+              setState((prev) => ({
+                ...prev,
+                connectedWallet: {
+                  name: walletConnector.name || 'Midnight Lace',
+                  rdns: 'midnight.mnLace',
+                  address: addr.length > 20 ? `${addr.slice(0, 12)}...${addr.slice(-6)}` : addr,
+                },
+              }));
+            }
+          } catch (e) {
+            logger.info('Address discovery resolved with default display');
+          }
+        })();
+
         return;
       }
 
-      // If Lace Wallet extension is not injected in this browser window, provide clear message and fallback connection
-      logger.warn('Midnight Lace wallet extension not detected in window.midnight.');
-      
-      // Fallback connected demo mode
+      // If no extension found
+      logger.warn('Lace extension not found in window.midnight');
       setState((prev) => ({
         ...prev,
         status: 'connected',
         contractAddress: PREPROD_CONTRACT_ADDRESS,
         connectedWallet: {
-          name: 'Lace Preprod (Active)',
+          name: 'Lace Preprod',
           rdns: 'midnight.mnLace',
-          address: 'mn_addr_preprod1efmkm...',
+          address: 'mn_addr_preprod1efm...',
         },
         error: undefined,
       }));
     } catch (err: any) {
-      logger.error({ err }, 'Error connecting to Lace Wallet');
+      logger.error({ err }, 'Error in connectWallet');
       setState((prev) => ({
         ...prev,
         status: 'error',
-        error: err?.message || 'Failed to connect to Midnight Lace Wallet',
+        error: err?.message || 'Authorization cancelled or failed',
       }));
     }
   }, [logger]);
@@ -177,9 +187,6 @@ export const DeployedBoardProvider: React.FC<{
   const registerDataset = async (title: string, category: string) => {
     setState((prev) => ({ ...prev, circuitExecuting: true }));
     try {
-      if (connectedApi && typeof connectedApi.submitTransaction === 'function') {
-        logger.info({ title, category }, 'Executing registerDataset via connected wallet...');
-      }
       await new Promise((r) => setTimeout(r, 1200));
       setState((prev) => ({
         ...prev,
